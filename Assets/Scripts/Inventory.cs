@@ -28,10 +28,10 @@ public class Inventory{
     {
         return names;
     }
-
-    public void UseItem()
+    
+    public int GetCount()
     {
-
+        return stored.Count;
     }
     
 

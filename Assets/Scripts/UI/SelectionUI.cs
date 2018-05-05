@@ -14,6 +14,10 @@ public class SelectionUI : MonoBehaviour {
         {
             selectText[i].text = names[i];
         }
+        for (int i = comp; i < selectText.Length;i++)
+        {
+            selectText[i].text = "";
+        }
     }
 
 }

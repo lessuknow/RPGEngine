@@ -9,6 +9,7 @@ public class Character{
     private Inventory skills;
     public int str = 4;
     public int wis = 6;
+    public string name = "Name";
     public CharacterUI charUI;
 
     public Character()
@@ -38,6 +39,11 @@ public class Character{
     public List<string> GetSkillNames()
     {
         return skills.GetNames();
+    }
+
+    public int GetSkillNum()
+    {
+        return skills.GetCount();
     }
 
     public void AddSkill(Skill_Base s)

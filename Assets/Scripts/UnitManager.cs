@@ -25,9 +25,14 @@ public class UnitManager : MonoBehaviour {
         chars[1].charUI = twoUI;
         chars[2].charUI = threeUI;
 
+        chars[0].name = "One";
+        chars[1].name = "Two";
+        chars[2].name = "Three";
+
         chars[0].AddSkill(new Skill_Base("Tar.Friend", true));
         chars[0].AddSkill(new Skill_Base("Tar.Enemy", false));
 
+        
         enemies = new List<Mob_Base>();
         
 
@@ -37,7 +42,6 @@ public class UnitManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            print("Reduced player1 hp");
             chars[2].AddHealth(-1);
         }
     }
@@ -62,21 +66,22 @@ public class UnitManager : MonoBehaviour {
     public void AddItem(Skill_Base itm)
     {
         chars[0].AddSkill(itm);
-        uh.CallTextbox("You got a " + itm.GetName());
+        Textbox("You got a " + itm.GetName());
+    }
+
+    public void Textbox(string x)
+    {
+        uh.CallTextbox(x);
     }
 
     public void UseSelected(string selectionType,int curPlayer, int pos, int skillPos)
     {
-        print("Selected!");
         if(selectionType == "Skill")
         {
-            print("is skill "+curPlayer+" "+pos);
-            
             if(CharSkillIsFriendly(curPlayer,skillPos))
             { 
                 if(skillPos < (chars[curPlayer].GetSkillNames().Count))
                 {
-                    print("is a valid position");
                     ProcessFriendly(chars[curPlayer], chars[pos], chars[curPlayer].GetSkill(skillPos));
 
                     //That means our skill went through
@@ -86,7 +91,6 @@ public class UnitManager : MonoBehaviour {
             else
             {
                 Mob_Base enm = pC.GetCollisionInFront().GetComponent<Mob_Base>();
-                print("is enemy skill " + enm);
                 ProcessEnemy(chars[curPlayer], enm, chars[curPlayer].GetSkill(skillPos));
             }
         }

@@ -35,7 +35,7 @@ public class PlayerControls : MonoBehaviour {
     const int menuNum = 5, charNum = 3;
 
     //RN it is player one's turn.
-    private int curPlayer = 0;
+    private int curCharTurn = 0;
     //For the selection
     private enum curSelect { Skill, Passive};
     private curSelect selectionType;
@@ -299,7 +299,7 @@ public class PlayerControls : MonoBehaviour {
             {
                 cS = curState._Menu;
 
-                uih.ToggleSelectionUI(um.GetSkillDisplay(curPlayer));
+                uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
             }
             //Targetting players; need to back up.
             else if (cS == curState._Char)
@@ -329,17 +329,18 @@ public class PlayerControls : MonoBehaviour {
                 //TODO: This stuff!
 
                 cS = curState._Char;
+
                 //If its a friendly skill, we need ot chose a friend
-                if (um.CharSkillIsFriendly(curPlayer,curSelectPos) == true)
+                if (um.CharSkillIsFriendly(curCharTurn, curSelectPos) == true)
                     uih.UpdateCharPos(curCharPos);
                 //If its aggressive, fuck you.
                 else
                 {
-                    um.UseSelected(selectionType.ToString(), curPlayer, curCharPos, curSelectPos);
+                    um.UseSelected(selectionType.ToString(), curCharTurn, curCharPos, curSelectPos);
                     cS = curState._Null;
-                    uih.ToggleSelectionUI(um.GetSkillDisplay(curPlayer));
+                    uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
                     uih.TogglePlayerUI();
-                    curPlayer++;
+                    curCharTurn++;
                     curCharPos = 0;
                     curSelectPos = 0;
                     uih.UpdateCharPos(-1);
@@ -349,11 +350,11 @@ public class PlayerControls : MonoBehaviour {
             //After getting targeting, do the move!
             else if (cS == curState._Char)
             {
-                um.UseSelected(selectionType.ToString(), curPlayer, curCharPos,curSelectPos);
+                um.UseSelected(selectionType.ToString(), curCharTurn, curCharPos,curSelectPos);
                 cS = curState._Null;
-                uih.ToggleSelectionUI(um.GetSkillDisplay(curPlayer));
+                uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
                 uih.TogglePlayerUI();
-                curPlayer++;
+                curCharTurn++;
                 curCharPos = 0;
                 curSelectPos = 0;
                 uih.UpdateCharPos(-1);
@@ -393,9 +394,17 @@ public class PlayerControls : MonoBehaviour {
         //TODO: Finish code for items/the rest of it!
         if(curMenuPos == 2)
         {
-            uih.ToggleSelectionUI(um.GetSkillDisplay(curPlayer));
-            selectionType = curSelect.Skill;
-            cS = curState._Selection;
+            print(um.GetSkillDisplay(curCharTurn).Count);
+            if(um.GetSkillDisplay(curCharTurn).Count > 0)
+            { 
+                uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
+                selectionType = curSelect.Skill;
+                cS = curState._Selection;
+            }
+            else
+            {
+                um.Textbox(um.chars[curCharTurn].name +" has no skills!"); 
+            }
         }
     }
 
