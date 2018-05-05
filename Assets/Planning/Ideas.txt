@@ -1,0 +1,9 @@
+﻿5 Abilties per character, and
+5 Items total.
+
+Items -> 1 Time use but shared and stornger.
+
+Abilities -> Multiple use (Mana system? Probably not)
+	-Like cards; each has a cooldown most likely.
+
+	cards; no itmes insetad passives. some abilities are one use.
