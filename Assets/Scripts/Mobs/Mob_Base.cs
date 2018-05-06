@@ -32,7 +32,7 @@ public class Mob_Base : MonoBehaviour{
     }
 
     //Returns a skill's damage value
-    public int UseSkill()
+    public int GetSkill()
     {
         int x = Random.Range(0, 3);
 

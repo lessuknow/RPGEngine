@@ -309,7 +309,7 @@ public class PlayerControls : MonoBehaviour {
             }
         }
         //Menu button is currently e; 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !um.IsUITextboxOpen())
         {
             //We're not in any menu, so we opened the menu.
             if (cS == curState._Null)
@@ -337,13 +337,9 @@ public class PlayerControls : MonoBehaviour {
                 else
                 {
                     um.UseSelected(selectionType.ToString(), curCharTurn, curCharPos, curSelectPos);
-                    cS = curState._Null;
                     uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
                     uih.TogglePlayerUI();
-                    curCharTurn++;
-                    curCharPos = 0;
-                    curSelectPos = 0;
-                    uih.UpdateCharPos(-1);
+                    NextTurn();
                 }
 
             }
@@ -351,15 +347,15 @@ public class PlayerControls : MonoBehaviour {
             else if (cS == curState._Char)
             {
                 um.UseSelected(selectionType.ToString(), curCharTurn, curCharPos,curSelectPos);
-                cS = curState._Null;
                 uih.ToggleSelectionUI(um.GetSkillDisplay(curCharTurn));
                 uih.TogglePlayerUI();
-                curCharTurn++;
-                curCharPos = 0;
-                curSelectPos = 0;
-                uih.UpdateCharPos(-1);
+                NextTurn();
             }
 
+        }
+        else if(Input.GetKeyDown(KeyCode.E) && um.IsUITextboxOpen())
+        {
+            um.CloseTextbox();
         }
         
         //Handle the actual movement/Rotation lerps.
@@ -386,13 +382,36 @@ public class PlayerControls : MonoBehaviour {
             }
         }
     }
+    
+    //Handles switching tur.s
+    private void NextTurn()
+    {
+        cS = curState._Null;
+        curCharTurn++;
+        curCharPos = 0;
+        curSelectPos = 0;
+        uih.UpdateCharPos(-1);
+        if(curCharTurn == charNum)
+        {
+            um.RunEnemySkills();
+            curCharTurn = 0;
+        }
+    }
 
     //Handles the act of actually selecting a menu item.
     private void MenuSelect()
     {
         //We're going to assume that the position for items is 3
         //TODO: Finish code for items/the rest of it!
-        if(curMenuPos == 2)
+        if(curMenuPos == 0)
+        {
+            um.UseSelected("Attack" , curCharTurn, curCharPos, curSelectPos);
+
+            cS = curState._Null;
+            uih.TogglePlayerUI();
+            NextTurn();
+        }
+        else if(curMenuPos == 2)
         {
             print(um.GetSkillDisplay(curCharTurn).Count);
             if(um.GetSkillDisplay(curCharTurn).Count > 0)

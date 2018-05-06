@@ -7,10 +7,13 @@ public class UnitManager : MonoBehaviour {
     //Players all move first, and then all the enemies move.
 
     public Character[] chars;
-    public List<Mob_Base> enemies;
+    private List<Mob_Base> enemies;
     public CharacterUI oneUI, twoUI, threeUI;
     public PlayerControls pC;
-    
+
+    //TODO: Make a dictionary to store all of the skills.
+    private Skill_Base attack;
+
     [SerializeField] UIHandler uh;
 
     private void Awake()
@@ -34,7 +37,8 @@ public class UnitManager : MonoBehaviour {
 
         
         enemies = new List<Mob_Base>();
-        
+
+        attack = new Skill_Base("Attack", false);
 
     }
 
@@ -46,10 +50,12 @@ public class UnitManager : MonoBehaviour {
         }
     }
 
-    private void RunEnemySkills()
+    public void RunEnemySkills()
     {
         for (int i = 0; i < enemies.Count; i++)
-            enemies[i].UseSkill();
+        { 
+            chars[0].AddHealth(-enemies[i].GetSkill());
+        }
     }
 
     //Returns if the tested skill targets friends or enemies.
@@ -63,20 +69,35 @@ public class UnitManager : MonoBehaviour {
         return chars[curPlayer].GetSkillNames();
     }
 
+    public bool IsUITextboxOpen()
+    {
+        return uh.IsTextboxOpen();
+    }
+
     public void AddItem(Skill_Base itm)
     {
         chars[0].AddSkill(itm);
         Textbox("You got a " + itm.GetName());
     }
-
+    //refactor these;
     public void Textbox(string x)
     {
         uh.CallTextbox(x);
     }
 
+    public void CloseTextbox()
+    {
+        uh.CloseTextbox();
+    }
+
     public void UseSelected(string selectionType,int curPlayer, int pos, int skillPos)
     {
-        if(selectionType == "Skill")
+        if(selectionType == "Attack")
+        {
+            Mob_Base enm = pC.GetCollisionInFront().GetComponent<Mob_Base>();
+            ProcessEnemy(chars[curPlayer], enm, attack);
+        }
+        else if(selectionType == "Skill")
         {
             if(CharSkillIsFriendly(curPlayer,skillPos))
             { 
@@ -97,6 +118,10 @@ public class UnitManager : MonoBehaviour {
        
     }
 
+    public void AddEnemy(Mob_Base en)
+    {
+        enemies.Add(en);
+    }
 
     public void ProcessEnemy(Character caster, Mob_Base target, Skill_Base skill)
     {
@@ -107,6 +132,8 @@ public class UnitManager : MonoBehaviour {
 
         target.AddHealth(Mathf.RoundToInt(result));
 
+        Textbox(caster.name + " used " + skill.GetName() + "!\n"
+            + target.name + " took " + result + " damage!");
     }
 
     //Currently heals the target, based on the caster's wis
@@ -116,7 +143,8 @@ public class UnitManager : MonoBehaviour {
         result += skill.GetWisScaling() * caster.wis;
 
         target.AddHealth(Mathf.RoundToInt(result));
-        
+        Textbox(caster.name + " used " + skill.GetName() + "!\n"
+            +target.name+" recovered "+result+" health!");
     }
 
 }

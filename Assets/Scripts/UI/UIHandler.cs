@@ -268,6 +268,11 @@ public class UIHandler : MonoBehaviour {
         sU.SetSelection(selections);
     }
 
+    public bool IsTextboxOpen()
+    {
+        return openTextBox;
+    }
+
     private void ToggleTextbox()
     {
         lerpTime_textBox = 0;
@@ -294,6 +299,16 @@ public class UIHandler : MonoBehaviour {
         if (!IsInvoking())
             Invoke("ToggleTextbox", textBoxDuration);
 
+    }
+
+    public void CloseTextbox()
+    {
+        if (openTextBox == true)
+            ToggleTextbox();
+        if(IsInvoking())
+        {
+            CancelInvoke("ToggleTextbox");
+        }
     }
 
 }

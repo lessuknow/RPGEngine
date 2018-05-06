@@ -122,7 +122,7 @@ public class CreateObjects : MonoBehaviour {
                         print("Spawned enemy");
 
                         GameObject obj = Instantiate(enemy, pos, Quaternion.identity);
-                        um.enemies.Add(obj.GetComponent<Mob_Base>());
+                        um.AddEnemy(obj.GetComponent<Mob_Base>());
                     }
                 }
             }

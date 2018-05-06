@@ -293,6 +293,7 @@
     <Compile Include="Assets\Scripts\Interactables\DoorScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\Interact_Base.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Mobs\Animations\Anim_Hover.cs" />
     <Compile Include="Assets\Scripts\Mobs\Mob_Base.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Assets\Scripts\Tiles\Watertile.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterUI.cs" />
     <Compile Include="Assets\Scripts\UI\Deprecated_Inventory_UI.cs" />
+    <Compile Include="Assets\Scripts\UI\FaceCameraUI.cs" />
     <Compile Include="Assets\Scripts\UI\MobUI.cs" />
     <Compile Include="Assets\Scripts\UI\SelectionUI.cs" />
     <Compile Include="Assets\Scripts\UI\TextUI.cs" />
