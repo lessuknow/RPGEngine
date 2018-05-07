@@ -93,7 +93,6 @@ public class UIHandler : MonoBehaviour {
                 textBoxText.enabled = true;
 
             moving_textbox = false;
-            onScreen_textBox = !onScreen_textBox;
             cmpRate = 0;
         }
     }
@@ -111,7 +110,6 @@ public class UIHandler : MonoBehaviour {
         {
             //Lerp is finished here.
             moving_selectedBox = false;
-            onScreen_selectedBox = !onScreen_selectedBox;
         }
     }
     private void MoveCharStat()
@@ -145,7 +143,7 @@ public class UIHandler : MonoBehaviour {
         {
             //Lerp is finished here.
             moving_command = false;
-            onScreen_command = !onScreen_command;
+            //onScreen_command = !onScreen_command;
         }
     }
     public void Update()
@@ -235,8 +233,10 @@ public class UIHandler : MonoBehaviour {
         {
             lerpEndPos_cs.y -= charStatHeight;
         }
+        onScreen_charStat = !onScreen_charStat;
         moving_charStat = true;
     }
+    
 
     private void ToggleCommandUI()
     {
@@ -249,7 +249,8 @@ public class UIHandler : MonoBehaviour {
         {
             lerpEndPos_cmd.x += commandWidth;
         }
-        moving_command = true;
+        onScreen_command = !onScreen_command;
+       moving_command = true;
     }
 
 
@@ -265,12 +266,13 @@ public class UIHandler : MonoBehaviour {
             lerpEndPos_sb.x -= selectedWidth;
         }
         moving_selectedBox = true;
+        onScreen_selectedBox = !onScreen_selectedBox;
         sU.SetSelection(selections);
     }
 
     public bool IsTextboxOpen()
     {
-        return openTextBox;
+        return (openTextBox && !moving_textbox);
     }
 
     private void ToggleTextbox()
@@ -286,6 +288,7 @@ public class UIHandler : MonoBehaviour {
             textBoxText.enabled = false;
             openTextBox = false;
         }
+        onScreen_textBox = !onScreen_textBox;
         moving_textbox = true;
     }
 
