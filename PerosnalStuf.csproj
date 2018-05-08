@@ -295,6 +295,8 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\Mobs\Animations\Anim_Hover.cs" />
     <Compile Include="Assets\Scripts\Mobs\Mob_Base.cs" />
+    <Compile Include="Assets\Scripts\Pathfindin\AStar.cs" />
+    <Compile Include="Assets\Scripts\Pathfindin\Node.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Playertile.cs" />

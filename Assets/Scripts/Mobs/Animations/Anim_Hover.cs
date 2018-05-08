@@ -5,7 +5,6 @@ using UnityEngine;
 public class Anim_Hover : MonoBehaviour {
 
     private float floatDiff = 0.07f;
-    private float curFloat = 0;
     private float origY;
     private float speedMod = 0.01f;
     private bool floatUp = false;

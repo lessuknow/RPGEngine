@@ -120,8 +120,10 @@ public class PlayerControls : MonoBehaviour {
             Vector3 checkPos = tm.GetTilePos(transform.position);
             checkPos.z += yMod * tileSize;
             checkPos.x += xMod * tileSize;
-            Collider[] x = Physics.OverlapSphere(checkPos, 0.2f);
- 
+            if (moving)
+            {
+                ForceEnemyTurn();
+            }
             if (tm.IsWalkable(checkPos))
             {
                 endPos[0] = checkPos[0] + tileSize / 2;
@@ -129,6 +131,7 @@ public class PlayerControls : MonoBehaviour {
                 endPos[2] = checkPos[2] + tileSize / 2;
                 moving = true;
             }
+
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -145,18 +148,22 @@ public class PlayerControls : MonoBehaviour {
             else
                 xMod = -1;
 
-            //Vector3 checkPos = tlmp.CellToWorld(a);
-            Vector3 checkPos = transform.position;
+               //Vector3 checkPos = tlmp.CellToWorld(a);
+            Vector3 checkPos = tm.GetTilePos(transform.position);
             checkPos.z += yMod * tileSize;
             checkPos.x += xMod * tileSize;
-            Collider[] x = Physics.OverlapSphere(checkPos, 0.2f);
-
-            //check if theres a door
-            if (x.Length == 0)
+            if(moving)
             {
-                endPos = checkPos;
+                ForceEnemyTurn();
+            }
+            if (tm.IsWalkable(checkPos))
+            {
+                endPos[0] = checkPos[0] + tileSize / 2;
+                endPos[1] = transform.position.y;
+                endPos[2] = checkPos[2] + tileSize / 2;
                 moving = true;
             }
+            
         }
     }
     //Code for interacting with the object in front.
@@ -333,7 +340,7 @@ public class PlayerControls : MonoBehaviour {
                 //If its a friendly skill, we need ot chose a friend
                 if (um.CharSkillIsFriendly(curCharTurn, curSelectPos) == true)
                     uih.UpdateCharPos(curCharPos);
-                //If its aggressive, fuck you.
+                //If its aggressive, we automatically go to performing the move.
                 else
                 {
                     um.UseSelected(selectionType.ToString(), curCharTurn, curCharPos, curSelectPos);
@@ -368,6 +375,11 @@ public class PlayerControls : MonoBehaviour {
                 Vector3.Lerp(transform.position, endPos, 1);
                 moveLerpTime = 0;
                 moving = false;
+
+                //If the player moves, after they move the enemies get to move. Easy.
+                //We're setting curCharturn to charNum-1 in order to actually have the enemies move,
+                //and reset the varaibles to their previous values.
+                ForceEnemyTurn();
             }
         }
         if (rotating)
@@ -396,6 +408,17 @@ public class PlayerControls : MonoBehaviour {
             um.RunEnemySkills();
             curCharTurn = 0;
         }
+    }
+
+    //Has the enmey move.
+    private void ForceEnemyTurn()
+    {
+        cS = curState._Null;
+        curCharPos = 0;
+        curSelectPos = 0;
+        uih.UpdateCharPos(-1);
+        um.RunEnemySkills();
+        curCharTurn = 0;
     }
 
     //Handles the act of actually selecting a menu item.

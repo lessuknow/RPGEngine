@@ -14,7 +14,7 @@ public class UIHandler : MonoBehaviour {
     //Is the text box open?
     private bool openTextBox;
     //Holds the currentl lerp values.
-    private float lerpTime_charStat, lerpTime_command, lerpTime_textBox, lerpTime_selectBox;
+    private float lerpTime_charStat, lerpTime_command, lerpTime_selectBox;
 
     //The actual UI elements.
     public Image charStatUI, commandUI,textBoxUI, selectedBoxUI;
@@ -126,7 +126,6 @@ public class UIHandler : MonoBehaviour {
         {
             //Lerp is finished here.
             moving_charStat = false;
-            onScreen_charStat = !onScreen_charStat;
         }
     }
     private void MoveCommand()
@@ -277,7 +276,6 @@ public class UIHandler : MonoBehaviour {
 
     private void ToggleTextbox()
     {
-        lerpTime_textBox = 0;
         if (onScreen_textBox == false)
         {
             //We are opening the textbox

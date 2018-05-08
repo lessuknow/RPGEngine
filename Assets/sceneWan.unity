@@ -968,8 +968,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 7, y: -13, z: 0}
     second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 15
+      m_TileIndex: 0
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -2291,8 +2291,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 10, y: -7, z: 0}
     second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 14
+      m_TileIndex: 1
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -4757,8 +4757,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 20, y: 4, z: 0}
     second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 15
+      m_TileIndex: 0
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -4802,8 +4802,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 1, y: 5, z: 0}
     second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 15
+      m_TileIndex: 0
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -4955,8 +4955,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 18, y: 5, z: 0}
     second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 15
+      m_TileIndex: 0
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -5432,9 +5432,9 @@ Tilemap:
       m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1
+  - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
-  - m_RefCount: 307
+  - m_RefCount: 304
     m_Data: {fileID: 11400000, guid: 12136292c6413b546b2c13286becc662, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 24197b7c93baeeb4a924b10254967987, type: 2}
@@ -5473,9 +5473,9 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: f1799ff5d5cc48348adac3927c53d311, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: eaf104b3187d0034fa03609ddf992d10, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 4
     m_Data: {fileID: 21300000, guid: a38a120f764fee044a5178cad3bec940, type: 3}
-  - m_RefCount: 307
+  - m_RefCount: 304
     m_Data: {fileID: 21300000, guid: 9c4a67ba8998fa7428c891aabd1093b0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: a1e66c015056a9d4fa8899b9446a9567, type: 3}
@@ -5550,7 +5550,7 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 0
+    m_DirtyIndex: 5
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
@@ -6810,6 +6810,7 @@ GameObject:
   - component: {fileID: 1237723069}
   - component: {fileID: 1237723071}
   - component: {fileID: 1237723072}
+  - component: {fileID: 1237723073}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -6864,6 +6865,7 @@ MonoBehaviour:
   dt: {fileID: 11400000, guid: b537d211fc14838428933f94f69321e0, type: 2}
   ct: {fileID: 11400000, guid: 99413e1664d74364f85a35735a9dd6c7, type: 2}
   et: {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
+  astar: {fileID: 1237723073}
   wall: {fileID: 1604614887964472, guid: c5a9e7f794f59a940959c559c31fd211, type: 2}
   door: {fileID: 1991061866347800, guid: 723aa034d88bd5e4792d856e8af46e1c, type: 2}
   chest: {fileID: 1250171668839496, guid: 5c6c5c0245df9ca468921bcd105f01dd, type: 2}
@@ -6884,11 +6886,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tlmp: {fileID: 298810541}
   openedDoor: {fileID: 11400000, guid: 5883ad2033ccb474b80bbb27fbe522d9, type: 2}
+  defaultTile: {fileID: 11400000, guid: 12136292c6413b546b2c13286becc662, type: 2}
+  enemyTile: {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
   unwalkable:
   - {fileID: 11400000, guid: b537d211fc14838428933f94f69321e0, type: 2}
   - {fileID: 11400000, guid: 26d380b4d3ab8684b83e4b97fcf86aba, type: 2}
   - {fileID: 11400000, guid: 99413e1664d74364f85a35735a9dd6c7, type: 2}
   - {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
+--- !u!114 &1237723073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1237723068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5f0e708437bbc4894f6bd6951c1df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tm: {fileID: 1237723072}
+  start: {fileID: 0}
+  end: {fileID: 0}
 --- !u!1001 &1244780742
 Prefab:
   m_ObjectHideFlags: 0

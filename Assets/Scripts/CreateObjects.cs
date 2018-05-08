@@ -17,6 +17,9 @@ public class CreateObjects : MonoBehaviour {
     private Tile pt, wt, dt, ct, et;
 
     [SerializeField]
+    private AStar astar;
+
+    [SerializeField]
     private GameObject wall, door, chest, enemy;
 
     [SerializeField] private UnitManager um;
@@ -44,10 +47,12 @@ public class CreateObjects : MonoBehaviour {
         mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshRenderer>().material = wallMat;
 
+
+        //Spawn the player real fast
+        GameObject plr = Instantiate(player, new Vector3(0,0,0), Quaternion.identity);
+
         for (int x = orgn.x; x < orgn.x + sz.x;x++)
         {
-            Vector3Int initPos = new Vector3Int(0, 0, 0);
-
             for (int y  = orgn.y; y < orgn.y + sz.y; y++)
             {
                 Vector3Int a = new Vector3Int(x, y, orgn.z);
@@ -70,15 +75,15 @@ public class CreateObjects : MonoBehaviour {
 
                         print("Spawned player");
 
-                        GameObject obj = Instantiate(player, pos, Quaternion.identity);
-                        obj.transform.rotation = Quaternion.Euler(0, 180, 0);
+                        plr.transform.position = pos;
+                        plr.transform.rotation = Quaternion.Euler(0, 180, 0);
 
                         //Should probably change this stuff to be done inside the prefab instead lol
-                        obj.GetComponent<PlayerControls>().curDir = PlayerControls.Direction.North;
-                        obj.GetComponent<PlayerControls>().tm = tm;
-                        obj.GetComponent<PlayerControls>().uih = uih;
-                        obj.GetComponent<PlayerControls>().um = um;
-                        um.pC = obj.GetComponent<PlayerControls>();
+                        plr.GetComponent<PlayerControls>().curDir = PlayerControls.Direction.North;
+                        plr.GetComponent<PlayerControls>().tm = tm;
+                        plr.GetComponent<PlayerControls>().uih = uih;
+                        plr.GetComponent<PlayerControls>().um = um;
+                        um.pC = plr.GetComponent<PlayerControls>();
 
                     }
                     if(tlmp.GetTile(a) == dt)
@@ -123,6 +128,10 @@ public class CreateObjects : MonoBehaviour {
 
                         GameObject obj = Instantiate(enemy, pos, Quaternion.identity);
                         um.AddEnemy(obj.GetComponent<Mob_Base>());
+                        obj.GetComponent<Mob_Base>().target = plr;
+                        obj.GetComponent<Mob_Base>().astar = astar;
+                        obj.GetComponent<Mob_Base>().tm = tm;
+                        
                     }
                 }
             }

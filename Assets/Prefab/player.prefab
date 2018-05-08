@@ -117,7 +117,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1666036776984372}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -182,10 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1045dae37c06ec342b3927e8a05c4667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tlmp: {fileID: 0}
+  uih: {fileID: 0}
+  um: {fileID: 0}
+  tm: {fileID: 0}
   curDir: 2
-  doorTile: {fileID: 0}
-  canWalk: {fileID: 11400000, guid: 12136292c6413b546b2c13286becc662, type: 2}
   rotateSpeed: 5
   moveSpeed: 5
 --- !u!124 &124405800284159570
