@@ -128,9 +128,9 @@ public class CreateObjects : MonoBehaviour {
 
                         GameObject obj = Instantiate(enemy, pos, Quaternion.identity);
                         um.AddEnemy(obj.GetComponent<Mob_Base>());
-                        obj.GetComponent<Mob_Base>().target = plr;
-                        obj.GetComponent<Mob_Base>().astar = astar;
-                        obj.GetComponent<Mob_Base>().tm = tm;
+                        obj.GetComponent<Mob_Movement>().target = plr;
+                        obj.GetComponent<Mob_Movement>().astar = astar;
+                        obj.GetComponent<Mob_Movement>().tm = tm;
                         
                     }
                 }
