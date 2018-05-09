@@ -5689,6 +5689,52 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 817461515}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1001 &428767613
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.5754368
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 25.773766
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -7.0815234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229409453274268, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380585068743480, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
+  m_IsPrefabParent: 0
 --- !u!114 &441630160 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114902644947037466, guid: 27fd86af4f261764cae36a199bd3142a,
@@ -6870,7 +6916,6 @@ MonoBehaviour:
   ct: {fileID: 11400000, guid: 99413e1664d74364f85a35735a9dd6c7, type: 2}
   et: {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
   astar: {fileID: 1237723073}
-  wall: {fileID: 1604614887964472, guid: c5a9e7f794f59a940959c559c31fd211, type: 2}
   door: {fileID: 1991061866347800, guid: 723aa034d88bd5e4792d856e8af46e1c, type: 2}
   chest: {fileID: 1250171668839496, guid: 5c6c5c0245df9ca468921bcd105f01dd, type: 2}
   enemy: {fileID: 1380585068743480, guid: 4a4f8c64df832004cad3081acdf29414, type: 2}
@@ -6892,6 +6937,7 @@ MonoBehaviour:
   openedDoor: {fileID: 11400000, guid: 5883ad2033ccb474b80bbb27fbe522d9, type: 2}
   defaultTile: {fileID: 11400000, guid: 12136292c6413b546b2c13286becc662, type: 2}
   enemyTile: {fileID: 11400000, guid: 5952a17fe7d0e034c98dd24430351526, type: 2}
+  enemyWalkTile: {fileID: 11400000, guid: 5b48065f836b7cc45a3332393b1d7458, type: 2}
   unwalkable:
   - {fileID: 11400000, guid: b537d211fc14838428933f94f69321e0, type: 2}
   - {fileID: 11400000, guid: 26d380b4d3ab8684b83e4b97fcf86aba, type: 2}

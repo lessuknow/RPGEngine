@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 224073416364106262}
   - component: {fileID: 222445939600679454}
   - component: {fileID: 114729462352300612}
+  - component: {fileID: 114502262207762418}
   m_Layer: 5
   m_Name: hp
   m_TagString: Untagged
@@ -76,7 +77,7 @@ Transform:
   m_GameObject: {fileID: 1380585068743480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.5754368, y: 25.773766, z: -7.0815234}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 224624936926871694}
   m_Father: {fileID: 0}
@@ -166,6 +167,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBar: {fileID: 114729462352300612}
+--- !u!114 &114502262207762418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778218227664380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb43daf4c49b61d49b73dbe026de7ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
 --- !u!114 &114729462352300612
 MonoBehaviour:
   m_ObjectHideFlags: 1

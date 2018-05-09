@@ -13,7 +13,7 @@ public class Mob_Movement : MonoBehaviour {
     public GameObject target;
     public TileManager tm;
     private bool moving, rotating;
-    private Vector3 endPos;
+    private Vector3 endPos, origPos;
     private Quaternion endRotate;
     private float moveLerpTime = 0, moveSpeed = 5, 
         rotateLerpTime = 0, rotateSpeed = 5;
@@ -93,7 +93,14 @@ public class Mob_Movement : MonoBehaviour {
         //Note: Add a seperate FindPath function for just the next one.
         if (nextMove.Count > 0)
         {
-            tm.MoveEnemy(transform.position, nextMove[0]);
+
+            if (!moving)
+                origPos = transform.position;
+            else
+            {
+                tm.WalkEnemy(transform.position, transform.position);
+            }
+
 
             SetRotation(nextMove[0]);
 
@@ -102,6 +109,9 @@ public class Mob_Movement : MonoBehaviour {
             endPos[0] = nextMove[0][0];
             endPos[1] = transform.position.y;
             endPos[2] = nextMove[0][2];
+
+            tm.WalkEnemy(origPos, endPos);
+
             moving = true;
         }
     }
@@ -131,6 +141,7 @@ public class Mob_Movement : MonoBehaviour {
                 Vector3.Lerp(transform.position, endPos, 1);
                 moveLerpTime = 0;
                 moving = false;
+                tm.MoveEnemy(origPos, endPos);
 
             }
         }

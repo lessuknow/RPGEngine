@@ -7,7 +7,7 @@ public class TileManager : MonoBehaviour {
 
     //The floor's tilemap.
     public Tilemap tlmp;
-    public Tile openedDoor, defaultTile, enemyTile;
+    public Tile openedDoor, defaultTile, enemyTile, enemyWalkTile;
     [SerializeField] Tile[] unwalkable;
 
     private Node[] nodeMap;
@@ -117,6 +117,9 @@ public class TileManager : MonoBehaviour {
                 return false;
             }
         }
+        //Only enemies can walk on these tiles, not friends.
+        if (x == enemyWalkTile)
+            return false;
         return true;
     }
 
@@ -133,6 +136,14 @@ public class TileManager : MonoBehaviour {
     {
         tlmp.SetTile(tlmp.WorldToCell(prevPos), defaultTile);
         tlmp.SetTile(tlmp.WorldToCell(newPos), enemyTile);
+        RecalculateNodemap();
+    }
+
+    //Set the given tile to the "Walk Enemy" Tile. If prevPos == newPos, it just sets the given position to the default tile..
+    public void WalkEnemy(Vector3 prevPos, Vector3 newPos)
+    {
+        tlmp.SetTile(tlmp.WorldToCell(newPos), enemyWalkTile);
+        tlmp.SetTile(tlmp.WorldToCell(prevPos), defaultTile);
         RecalculateNodemap();
     }
 }

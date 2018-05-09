@@ -20,7 +20,7 @@ public class CreateObjects : MonoBehaviour {
     private AStar astar;
 
     [SerializeField]
-    private GameObject wall, door, chest, enemy;
+    private GameObject door, chest, enemy;
 
     [SerializeField] private UnitManager um;
     [SerializeField] private UIHandler uih;
@@ -50,6 +50,7 @@ public class CreateObjects : MonoBehaviour {
 
         //Spawn the player real fast
         GameObject plr = Instantiate(player, new Vector3(0,0,0), Quaternion.identity);
+        Camera cam = plr.GetComponentInChildren<Camera>();
 
         for (int x = orgn.x; x < orgn.x + sz.x;x++)
         {
@@ -131,7 +132,9 @@ public class CreateObjects : MonoBehaviour {
                         obj.GetComponent<Mob_Movement>().target = plr;
                         obj.GetComponent<Mob_Movement>().astar = astar;
                         obj.GetComponent<Mob_Movement>().tm = tm;
-                        
+                        obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
+
+
                     }
                 }
             }

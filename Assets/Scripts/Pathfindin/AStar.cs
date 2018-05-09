@@ -98,6 +98,8 @@ public class AStar : MonoBehaviour
             curNode = curNode.parent;
             curNode.resetCosts();
         }
+        //We remove the last node so the Enemy doesn't try to overlap with the player.
+        path.RemoveAt(0);
 
         curNode.resetCosts();
         path.Reverse();
