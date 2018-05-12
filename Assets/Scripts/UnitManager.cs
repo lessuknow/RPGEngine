@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOTE: Change this to be a singleton!
 public class UnitManager : MonoBehaviour {
 
     //Players all move first, and then all the enemies move.

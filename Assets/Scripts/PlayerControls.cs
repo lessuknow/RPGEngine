@@ -16,7 +16,7 @@ public class PlayerControls : MonoBehaviour {
     //and prob. will need more variables to differentiate between those.
     public Direction curDir = Direction.South;
     public enum Direction { North, East, South, West };
-    private enum curState { _Null, _Menu, _Selection, _Char };
+    private enum curState { _Null, _Menu, _Selection, _Char, _Shop };
     private curState cS;
     
     //Variables for the movement stuff (Rotations and end pos); for lerping.
@@ -39,6 +39,12 @@ public class PlayerControls : MonoBehaviour {
     //For the selection
     private enum curSelect { Skill, Passive};
     private curSelect selectionType;
+
+
+    public void Awake()
+    {
+        cS = curState._Null;
+    }
 
     //Code for rotating the player and moving it.
     public void OverworldMovement()
@@ -228,10 +234,17 @@ public class PlayerControls : MonoBehaviour {
         return null;
     }
 
-    //Set the original state.
-    public void Awake()
+    //Sets the charater's current state to "In shop". This is the only thing that sets cS to Shop.
+    public void CharInShop()
     {
-        cS = curState._Null;
+        cS = curState._Shop;
+    }
+    
+   
+    //Handles the shop's UI. Called in update when cS == curState._Shop.
+    public void ProcessShopUI()
+    {
+
     }
 
     void Update () {
@@ -240,7 +253,10 @@ public class PlayerControls : MonoBehaviour {
             {
             OverworldMovement();
         }
-
+        else if(cS == curState._Shop)
+        {
+            ProcessShopUI();
+        }
         //If we're in a menu, handle the menus accordingly.
         else if(cS == curState._Menu)
         {

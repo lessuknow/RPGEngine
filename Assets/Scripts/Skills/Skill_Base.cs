@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Base {
+public class Skill_Base : Item{
 
-    protected string name = "NaN";
     protected enum type {chars, enemies};
     protected type target;
     protected float wisScaling;

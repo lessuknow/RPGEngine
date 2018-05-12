@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Handles the player's menu UI.
 public class UIHandler : MonoBehaviour {
     //Variables for lerping the various UI elements.
 
@@ -44,7 +45,6 @@ public class UIHandler : MonoBehaviour {
 
     //transitionTime is for how fast the UI elements move; duration is for how long the textBox is
     //displayed on the screen before it goes away.
-    [SerializeField]
     private float transitionTime = 5f, textBoxDuration = 4f ;
 
     //For the menu elements.

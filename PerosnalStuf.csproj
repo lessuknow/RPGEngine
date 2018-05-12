@@ -292,7 +292,12 @@
     <Compile Include="Assets\Scripts\Interactables\ChestScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\DoorScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\Interact_Base.cs" />
-    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Interactables\NPC\Shop_NPC.cs" />
+    <Compile Include="Assets\Scripts\Interactables\NPC\Talk_NPC.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Equipments\EquipmentDictionary.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Equipments\Helmet_Base.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
     <Compile Include="Assets\Scripts\Mobs\Animations\Anim_Hover.cs" />
     <Compile Include="Assets\Scripts\Mobs\Mob_Base.cs" />
     <Compile Include="Assets\Scripts\Mobs\Mob_Movement.cs" />
@@ -311,6 +316,7 @@
     <Compile Include="Assets\Scripts\UI\FaceCameraUI.cs" />
     <Compile Include="Assets\Scripts\UI\MobUI.cs" />
     <Compile Include="Assets\Scripts\UI\SelectionUI.cs" />
+    <Compile Include="Assets\Scripts\UI\ShopHandler.cs" />
     <Compile Include="Assets\Scripts\UI\TextUI.cs" />
     <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <Compile Include="Assets\Scripts\UnitManager.cs" />

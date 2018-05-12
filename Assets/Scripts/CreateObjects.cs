@@ -14,17 +14,18 @@ public class CreateObjects : MonoBehaviour {
     
     //playertile, walltile, doortile
     [SerializeField]
-    private Tile pt, wt, dt, ct, et;
+    private Tile playerTile, wallTile, doorTile, chestTile, enemyTile, shopTile;
 
     [SerializeField]
     private AStar astar;
 
     [SerializeField]
-    private GameObject door, chest, enemy;
+    private GameObject door, chest, enemy, shop;
 
     [SerializeField] private UnitManager um;
     [SerializeField] private UIHandler uih;
     [SerializeField] private Material wallMat;
+    [SerializeField] private ShopHandler sui;
 
     private int vertNum = 0;
     private List<Vector3> verts;
@@ -51,7 +52,9 @@ public class CreateObjects : MonoBehaviour {
         //Spawn the player real fast
         GameObject plr = Instantiate(player, new Vector3(0,0,0), Quaternion.identity);
         Camera cam = plr.GetComponentInChildren<Camera>();
-
+        PlayerControls pc = plr.GetComponent<PlayerControls>();
+        print(pc);
+        
         for (int x = orgn.x; x < orgn.x + sz.x;x++)
         {
             for (int y  = orgn.y; y < orgn.y + sz.y; y++)
@@ -60,13 +63,13 @@ public class CreateObjects : MonoBehaviour {
 
 
                 //This elif statement 
-                if (tlmp.GetTile(a) == wt)
+                if (tlmp.GetTile(a) == wallTile)
                 {
                     AddVerts(x, y);
                 }
                 else
                 {
-                    if (tlmp.GetTile(a) == pt)
+                    if (tlmp.GetTile(a) == playerTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
 
@@ -87,7 +90,7 @@ public class CreateObjects : MonoBehaviour {
                         um.pC = plr.GetComponent<PlayerControls>();
 
                     }
-                    if(tlmp.GetTile(a) == dt)
+                    if(tlmp.GetTile(a) == doorTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
                         pos.x += tlmp.cellSize.x / 2;
@@ -102,7 +105,7 @@ public class CreateObjects : MonoBehaviour {
                         (obj.GetComponent<DoorScript>()).tm = tm;
 
                     }
-                    if (tlmp.GetTile(a) == ct)
+                    if (tlmp.GetTile(a) == chestTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
                         pos.x += tlmp.cellSize.x / 2;
@@ -118,7 +121,7 @@ public class CreateObjects : MonoBehaviour {
                         //((Chesttile)tlmp.GetTile(a)).door = obj;
 
                     }
-                    if (tlmp.GetTile(a) == et)
+                    if (tlmp.GetTile(a) == enemyTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
                         pos.x += tlmp.cellSize.x / 2;
@@ -132,6 +135,23 @@ public class CreateObjects : MonoBehaviour {
                         obj.GetComponent<Mob_Movement>().target = plr;
                         obj.GetComponent<Mob_Movement>().astar = astar;
                         obj.GetComponent<Mob_Movement>().tm = tm;
+                        obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
+
+
+                    }
+                    if (tlmp.GetTile(a) == shopTile)
+                    {
+                        Vector3 pos = tlmp.CellToWorld(a);
+                        pos.x += tlmp.cellSize.x / 2;
+                        pos.z += tlmp.cellSize.y / 2;
+                        pos.y += tlmp.cellSize.y / 2;
+
+                        print("Spawned shopkeeper");
+
+                        GameObject obj = Instantiate(shop, pos, Quaternion.identity);
+                        obj.GetComponent<Shop_NPC>().um = um;
+                        obj.GetComponent<Shop_NPC>().sui = sui;
+                        obj.GetComponent<Shop_NPC>().pc = pc;
                         obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
 
 

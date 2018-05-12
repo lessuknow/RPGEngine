@@ -6,16 +6,17 @@ public class Character{
 
     public int hp = 10;
     public int maxHp;
-    private Inventory skills;
+    private Inventory<Skill_Base> skills;
     public int str = 4;
     public int wis = 6;
     public string name = "Name";
     public CharacterUI charUI;
+    public Item headgear;
 
     public Character()
     {
         maxHp = hp;
-        skills = new Inventory();
+        skills = new Inventory<Skill_Base>();
     }
 
     public float GetHPPercent()
@@ -38,7 +39,10 @@ public class Character{
 
     public List<string> GetSkillNames()
     {
-        return skills.GetNames();
+        List<string> x = new List<string>();
+        for (int i = 0; i < skills.GetCount(); i++)
+            x.Add(skills.GetItem(i).GetName());
+        return x;
     }
 
     public int GetSkillNum()
