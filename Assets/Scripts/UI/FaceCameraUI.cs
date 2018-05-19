@@ -15,6 +15,8 @@ public class FaceCameraUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_Camera == null)
+            m_Camera = Camera.main;
         transform.rotation = m_Camera.transform.rotation;
     }
 }

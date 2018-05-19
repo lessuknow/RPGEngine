@@ -19,6 +19,8 @@ public class UnitManager : MonoBehaviour {
 
     private void Awake()
     {
+        enemies = new List<Mob_Base>();
+        print("I AM AWAKE");
         chars = new Character[3];
         //Wow, we have 3 characters!
         for (int i = 0; i < chars.Length; i++)
@@ -37,7 +39,6 @@ public class UnitManager : MonoBehaviour {
         chars[0].AddSkill(new Skill_Base("Tar.Enemy", false));
 
         
-        enemies = new List<Mob_Base>();
 
         attack = new Skill_Base("Attack", false);
 

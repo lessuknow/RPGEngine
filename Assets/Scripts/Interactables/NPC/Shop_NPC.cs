@@ -6,13 +6,15 @@ using UnityEngine;
 public class Shop_NPC : Interact_Base {
 
     public UnitManager um;
-    public ShopHandler sui;
+    public ShopUI sui;
     public PlayerControls pc;
+    bool inShop = false;
 
     public override void Toggle()
     {
         pc.CharInShop();
         //um.Textbox("Hey, I heard you were a pretty cool dude");
+        inShop = !inShop;
         sui.ToggleShop();
     }
 }

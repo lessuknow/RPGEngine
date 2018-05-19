@@ -283,12 +283,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Building System\UI\PlacementGrid.cs" />
     <Compile Include="Assets\Scripts\Cards\Card_Base.cs" />
     <Compile Include="Assets\Scripts\Cards\Card_Character.cs" />
     <Compile Include="Assets\Scripts\Cards\Characters\Two_Of_Clubs.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CreateObjects.cs" />
     <Compile Include="Assets\Scripts\Decklist.cs" />
+    <Compile Include="Assets\Scripts\EditTilemap.cs" />
     <Compile Include="Assets\Scripts\Interactables\ChestScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\DoorScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\Interact_Base.cs" />
@@ -306,6 +308,7 @@
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Playertile.cs" />
+    <Compile Include="Assets\Scripts\ShopControls.cs" />
     <Compile Include="Assets\Scripts\Skills\Skill_Base.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
     <Compile Include="Assets\Scripts\Tiles\doorTile.cs" />
@@ -316,7 +319,7 @@
     <Compile Include="Assets\Scripts\UI\FaceCameraUI.cs" />
     <Compile Include="Assets\Scripts\UI\MobUI.cs" />
     <Compile Include="Assets\Scripts\UI\SelectionUI.cs" />
-    <Compile Include="Assets\Scripts\UI\ShopHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\ShopUI.cs" />
     <Compile Include="Assets\Scripts\UI\TextUI.cs" />
     <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <Compile Include="Assets\Scripts\UnitManager.cs" />

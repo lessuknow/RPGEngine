@@ -22,7 +22,7 @@ public class TileManager : MonoBehaviour {
         RecalculateNodemap();
     }
 
-    private void RecalculateNodemap()
+    public void RecalculateNodemap()
     {
         tlmp.CompressBounds();
         totalNodeNum = tlmp.cellBounds.size.x * tlmp.cellBounds.size.y * tlmp.cellBounds.size.z;

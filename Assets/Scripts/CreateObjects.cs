@@ -25,7 +25,7 @@ public class CreateObjects : MonoBehaviour {
     [SerializeField] private UnitManager um;
     [SerializeField] private UIHandler uih;
     [SerializeField] private Material wallMat;
-    [SerializeField] private ShopHandler sui;
+    [SerializeField] private ShopUI sui;
 
     private int vertNum = 0;
     private List<Vector3> verts;
@@ -38,38 +38,24 @@ public class CreateObjects : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        CreateWalls();
+
         Vector3Int orgn = tlmp.origin;
         Vector3Int sz = tlmp.size;
 
-        verts = new List<Vector3>();
-        mesh = new GameObject("Plane");
-        mesh.AddComponent<MeshFilter>();
-        mesh.AddComponent<MeshRenderer>();
-        mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-        mesh.GetComponent<MeshRenderer>().material = wallMat;
-
-
         //Spawn the player real fast
-        GameObject plr = Instantiate(player, new Vector3(0,0,0), Quaternion.identity);
+        GameObject plr = Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
         Camera cam = plr.GetComponentInChildren<Camera>();
         PlayerControls pc = plr.GetComponent<PlayerControls>();
-        print(pc);
-        
-        for (int x = orgn.x; x < orgn.x + sz.x;x++)
+
+        bool PlacedPlayer = false;
+        for (int x = orgn.x; x < orgn.x + sz.x; x++)
         {
-            for (int y  = orgn.y; y < orgn.y + sz.y; y++)
+            for (int y = orgn.y; y < orgn.y + sz.y; y++)
             {
                 Vector3Int a = new Vector3Int(x, y, orgn.z);
 
-
-                //This elif statement 
-                if (tlmp.GetTile(a) == wallTile)
-                {
-                    AddVerts(x, y);
-                }
-                else
-                {
-                    if (tlmp.GetTile(a) == playerTile)
+                if (tlmp.GetTile(a) == playerTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
 
@@ -88,9 +74,9 @@ public class CreateObjects : MonoBehaviour {
                         plr.GetComponent<PlayerControls>().uih = uih;
                         plr.GetComponent<PlayerControls>().um = um;
                         um.pC = plr.GetComponent<PlayerControls>();
-
+                        PlacedPlayer = true;
                     }
-                    if(tlmp.GetTile(a) == doorTile)
+                    if (tlmp.GetTile(a) == doorTile)
                     {
                         Vector3 pos = tlmp.CellToWorld(a);
                         pos.x += tlmp.cellSize.x / 2;
@@ -100,7 +86,7 @@ public class CreateObjects : MonoBehaviour {
                         print("Spawned door");
 
                         GameObject obj = Instantiate(door, pos, Quaternion.identity);
-                    
+
                         ((doorTile)tlmp.GetTile(a)).door = obj;
                         (obj.GetComponent<DoorScript>()).tm = tm;
 
@@ -131,12 +117,14 @@ public class CreateObjects : MonoBehaviour {
                         print("Spawned enemy");
 
                         GameObject obj = Instantiate(enemy, pos, Quaternion.identity);
-                        um.AddEnemy(obj.GetComponent<Mob_Base>());
+
                         obj.GetComponent<Mob_Movement>().target = plr;
                         obj.GetComponent<Mob_Movement>().astar = astar;
                         obj.GetComponent<Mob_Movement>().tm = tm;
                         obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
-
+                        print(obj.GetComponent<Mob_Base>());
+                        um.AddEnemy(obj.GetComponent<Mob_Base>());
+                        print(um);
 
                     }
                     if (tlmp.GetTile(a) == shopTile)
@@ -155,22 +143,59 @@ public class CreateObjects : MonoBehaviour {
                         obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
 
 
-                    }
                 }
             }
         }
+        if (!PlacedPlayer)
+        {
+            Destroy(plr);
+        }
+
+    }
+
+    public void CreateWalls()
+    {
+
+        vertNum = 0;
+
+        Vector3Int orgn = tlmp.origin;
+        Vector3Int sz = tlmp.size;
+
+        verts = new List<Vector3>();
+        Destroy(mesh);
+        mesh = new GameObject("Plane");
+
+
+        mesh.AddComponent<MeshFilter>();
+        mesh.AddComponent<MeshRenderer>();
+
+
+
+        for (int x = orgn.x; x < orgn.x + sz.x; x++)
+        {
+            for (int y = orgn.y; y < orgn.y + sz.y; y++)
+            {
+                Vector3Int a = new Vector3Int(x, y, orgn.z);
+
+                //This elif statement 
+                if (tlmp.GetTile(a) == wallTile)
+                {
+                    AddVerts(x, y);
+                }
+
+            }
+        }
+
+        mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+        mesh.GetComponent<MeshRenderer>().material = wallMat;
         //After we spawn the objects/add the verts, work on the rest of the sutff.
         mesh.GetComponent<MeshFilter>().mesh.vertices = verts.ToArray();
         MakeTri();
         mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-        mesh.GetComponent<MeshCollider>() ;
+        mesh.GetComponent<MeshCollider>();
+    }
 
-
-	}
-
-
-
-    public void MakeTri()
+    private void MakeTri()
     {
         //int[] tri = new int[vertNum];
         List<int> triangles = new List<int>();
@@ -225,18 +250,16 @@ public class CreateObjects : MonoBehaviour {
         mesh.GetComponent<MeshFilter>().mesh.triangles = triangles.ToArray();
     }
 
-    public void AddVerts(int xCoord, int zCoord)
+    private void AddVerts(int xCoord, int zCoord)
     {
-
-        //Vector3[] ary = new Vector3[8];
-
         float x = tlmp.cellSize.x / 2;
         float y = tlmp.cellSize.y / 2;
         float z = tlmp.cellSize.y / 2;
 
+        y *= 2;
+
         float xMod = xCoord * tlmp.cellSize.x;
         float zMod = zCoord * tlmp.cellSize.y;
-        
 
         verts.Add(new Vector3(0 + xMod, 0 , 0 + zMod));
         verts.Add(new Vector3(2 * x + xMod, 0, 0 + zMod));

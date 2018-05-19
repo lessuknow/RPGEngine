@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class ShopHandler : MonoBehaviour {
+public class ShopUI : MonoBehaviour {
 
     public Image shopUI;
     bool moving_shopUI = false;
@@ -13,6 +13,7 @@ public class ShopHandler : MonoBehaviour {
         onScreen_y,
         offScreen_y;
     private float transitionTime = 5f;
+    [SerializeField] ShopControls sc;
 
     public void Awake()
     {
@@ -37,11 +38,20 @@ public class ShopHandler : MonoBehaviour {
         {
             //Lerp is finished here.
             moving_shopUI = false;
+            if (onScreen_shopUI)
+                sc.EnterShop();
+            else
+                sc.LeaveShop();
+
         }
     }
 
     private void Update()
     {
+        if(onScreen_shopUI)
+        {
+        }
+
         if(moving_shopUI)
         {
             MoveShopUI();
