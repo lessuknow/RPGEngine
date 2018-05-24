@@ -29,6 +29,7 @@ public class CreateObjects : MonoBehaviour {
 
     private int vertNum = 0;
     private List<Vector3> verts;
+    private List<Vector2> uvs;
 
     GameObject mesh;
 
@@ -162,6 +163,7 @@ public class CreateObjects : MonoBehaviour {
         Vector3Int sz = tlmp.size;
 
         verts = new List<Vector3>();
+        uvs = new List<Vector2>();
         Destroy(mesh);
         mesh = new GameObject("Plane");
 
@@ -190,6 +192,7 @@ public class CreateObjects : MonoBehaviour {
         mesh.GetComponent<MeshRenderer>().material = wallMat;
         //After we spawn the objects/add the verts, work on the rest of the sutff.
         mesh.GetComponent<MeshFilter>().mesh.vertices = verts.ToArray();
+        mesh.GetComponent<MeshFilter>().mesh.uv = uvs.ToArray();   
         MakeTri();
         mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshCollider>();
@@ -270,6 +273,18 @@ public class CreateObjects : MonoBehaviour {
         verts.Add(new Vector3(2 * x + xMod, 0, 2 * z + zMod));
         verts.Add(new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod));
         verts.Add(new Vector3(0 + xMod, 2 * y, 2 * z + zMod));
+        
+        uvs.Add(new Vector2(1, 0));
+        uvs.Add(new Vector2(0, 0));
+        uvs.Add(new Vector2(0, 1));
+        uvs.Add(new Vector2(1, 1));
+
+        uvs.Add(new Vector2(0, 0));
+        uvs.Add(new Vector2(1, 0));
+        uvs.Add(new Vector2(1, 1));
+        uvs.Add(new Vector2(0, 1));
+
+        //Wait, how?? Sure. I'll learn the math later...
 
         vertNum += 8;
     }
