@@ -26,15 +26,18 @@ public class CreateObjects : MonoBehaviour {
     [SerializeField] private UIHandler uih;
     [SerializeField] private Material wallMat;
     [SerializeField] private ShopUI sui;
-
-    private int vertNum = 0;
+    
     private List<Vector3> verts;
     private List<Vector2> uvs;
+    private List<int> triangleVerts;
 
     GameObject mesh;
 
+
     //There has to be a better way to do this...
     //There is a better way; doing it rn.
+
+
 
     // Use this for initialization
     void Start () {
@@ -156,13 +159,13 @@ public class CreateObjects : MonoBehaviour {
 
     public void CreateWalls()
     {
-
-        vertNum = 0;
+        
 
         Vector3Int orgn = tlmp.origin;
         Vector3Int sz = tlmp.size;
 
         verts = new List<Vector3>();
+        triangleVerts = new List<int>();
         uvs = new List<Vector2>();
         Destroy(mesh);
         mesh = new GameObject("Plane");
@@ -182,13 +185,27 @@ public class CreateObjects : MonoBehaviour {
                 //This elif statement 
                 if (tlmp.GetTile(a) == wallTile)
                 {
-                    AddVerts(x, y);
+                    //AddVerts(x, y);
                 }
 
             }
         }
 
-        mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+        AddVerts(0, 0);
+        AddVerts(1, 0);
+        AddVerts(2, 0);
+        AddVerts(3, 0);
+        AddVerts(4, 0);
+        AddVerts(5, 0);
+        AddVerts(1, 1);
+        AddVerts(1, 2);
+        AddVerts(1, 3);
+        AddVerts(1, 4);
+        AddVerts(1, 5);
+        //AddVerts(1, 1);
+        //AddVerts(0, 1);
+
+        //mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshRenderer>().material = wallMat;
         //After we spawn the objects/add the verts, work on the rest of the sutff.
         mesh.GetComponent<MeshFilter>().mesh.vertices = verts.ToArray();
@@ -196,6 +213,22 @@ public class CreateObjects : MonoBehaviour {
         MakeTri();
         mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshCollider>();
+
+        
+
+        for(int i=0;i<verts.Count;i++)
+        {
+            Vector3 tmp = verts[i];
+            for(int j=0;j< verts.Count; j++)
+            {
+                if (tmp == verts[j] && i != j)
+                { 
+                    print("Dupe! "+i+" "+j+" "+verts[j] + " " + tmp);
+
+                }
+            }
+        }
+
     }
 
     private void MakeTri()
@@ -205,51 +238,52 @@ public class CreateObjects : MonoBehaviour {
         //Front Face
 
         //TODO: Math, so we aren't unness. rendering things.
-        for(int i=0;i<vertNum;i+=8)
+        for(int i=0;i< triangleVerts.Count; i+=8)
         {
             
             //Render the left side
-            triangles.Add(i);
-            triangles.Add(i + 7);
-            triangles.Add(i + 3);
-            triangles.Add(i);
-            triangles.Add(i + 4);
-            triangles.Add(i + 7);
-
+            triangles.Add(triangleVerts[i]);
+            triangles.Add(triangleVerts[i + 7]);
+            triangles.Add(triangleVerts[i + 3]);
+            triangles.Add(triangleVerts[i]);
+            triangles.Add(triangleVerts[i + 4]);
+            triangles.Add(triangleVerts[i + 7]);
+           
             //Render the right side
-            triangles.Add(i + 2);
-            triangles.Add(i + 6);
-            triangles.Add(i + 1);
-            triangles.Add(i + 6);
-            triangles.Add(i + 5);
-            triangles.Add(i + 1);
-
+            triangles.Add(triangleVerts[i + 2]);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 1]);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 5]);
+            triangles.Add(triangleVerts[i + 1]);
+           
             //Render the front side
-            triangles.Add(i + 3);
-            triangles.Add(i + 2);
-            triangles.Add(i + 0);
-            triangles.Add(i + 2);
-            triangles.Add(i + 1);
-            triangles.Add(i + 0);
+            triangles.Add(triangleVerts[i + 3]);
+            triangles.Add(triangleVerts[i + 2]);
+            triangles.Add(triangleVerts[i + 0]);
+            triangles.Add(triangleVerts[i + 2]);
+            triangles.Add(triangleVerts[i + 1]);
+            triangles.Add(triangleVerts[i + 0]);
             
             //Render the back side
-            triangles.Add(i + 6);
-            triangles.Add(i + 7);
-            triangles.Add(i + 4);
-            triangles.Add(i + 5);
-            triangles.Add(i + 6);
-            triangles.Add(i + 4);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 7]);
+            triangles.Add(triangleVerts[i + 4]);
+            triangles.Add(triangleVerts[i + 5]);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 4]);
             
             //Render the top side
-            triangles.Add(i + 3);
-            triangles.Add(i + 7);
-            triangles.Add(i + 6);
-            triangles.Add(i + 3);
-            triangles.Add(i + 6);
-            triangles.Add(i + 2);
+            triangles.Add(triangleVerts[i + 3]);
+            triangles.Add(triangleVerts[i + 7]);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 3]);
+            triangles.Add(triangleVerts[i + 6]);
+            triangles.Add(triangleVerts[i + 2]);
             
-        }
 
+        }
+        print(triangleVerts);
         mesh.GetComponent<MeshFilter>().mesh.triangles = triangles.ToArray();
     }
 
@@ -263,30 +297,170 @@ public class CreateObjects : MonoBehaviour {
 
         float xMod = xCoord * tlmp.cellSize.x;
         float zMod = zCoord * tlmp.cellSize.y;
+        bool flipX = false, flipY = false;
+        //These if statements can and will need to be refactored...
 
-        verts.Add(new Vector3(0 + xMod, 0 , 0 + zMod));
-        verts.Add(new Vector3(2 * x + xMod, 0, 0 + zMod));
-        verts.Add(new Vector3(2 * x + xMod, 2 * y, 0 + zMod));
-        verts.Add(new Vector3(0 + xMod, 2 * y, 0 + zMod));
+        Vector3 tmp = new Vector3(0 + xMod, 0, 0 + zMod);
+        if(VertsContains(tmp) != -1)
+        {
+            if(uvs[VertsContains(tmp)] == new Vector2(0,0))
+            {
+                flipX = true;
+            }
 
-        verts.Add(new Vector3(0 + xMod, 0, 2 * z + zMod));
-        verts.Add(new Vector3(2 * x + xMod, 0, 2 * z + zMod));
-        verts.Add(new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod));
-        verts.Add(new Vector3(0 + xMod, 2 * y, 2 * z + zMod));
-        
-        uvs.Add(new Vector2(1, 0));
-        uvs.Add(new Vector2(0, 0));
-        uvs.Add(new Vector2(0, 1));
-        uvs.Add(new Vector2(1, 1));
+           //print("Des "+uvs[VertsContains(tmp)]+" "+ VertsContains(tmp));
+        }
 
-        uvs.Add(new Vector2(0, 0));
-        uvs.Add(new Vector2(1, 0));
-        uvs.Add(new Vector2(1, 1));
-        uvs.Add(new Vector2(0, 1));
+        tmp = new Vector3(2 * x + xMod, 0, 0 + zMod);
+        print(tmp);
+        if (VertsContains(tmp) != -1)
+        {
+            if (uvs[VertsContains(tmp)] == new Vector2(0, 0))
+            {
+                flipY = true;
+            }
 
+            print("Dees " + uvs[VertsContains(tmp)] + " " + VertsContains(tmp));
+        }
+
+        tmp = new Vector3(0 + xMod, 0, 0 + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(tmp);
+            uvs.Add(new Vector2(1, 0));
+        }
+        else
+        {
+            print("A");
+            triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(2 * x + xMod, 0, 0 + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(tmp);
+            if (!flipX)
+                uvs.Add(new Vector2(0, 0));
+            else
+                uvs.Add(new Vector2(1, 0));
+        }
+        else
+        {
+            print("B");
+            triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(2 * x + xMod, 2 * y, 0 + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(2 * x + xMod, 2 * y, 0 + zMod));
+            if (!flipX)
+            { 
+            uvs.Add(new Vector2(0, 1));
+            }
+            else
+            {
+                print("OWO");
+                uvs.Add(new Vector2(1,1));
+            }
+        }
+        else
+        {
+            print("C");
+            triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(0 + xMod, 2 * y, 0 + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(0 + xMod, 2 * y, 0 + zMod));
+            if (!flipX)
+                uvs.Add(new Vector2(1, 1));
+            else
+                uvs.Add(new Vector2(0, 0));
+        }
+        else
+        {
+            print("D");
+            triangleVerts.Add(VertsContains(tmp));
+        }
+
+        tmp = new Vector3(0 + xMod, 0, 2 * z + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(0 + xMod, 0, 2 * z + zMod));
+            if (!flipY)
+                uvs.Add(new Vector2(0, 0));
+            else
+                uvs.Add(new Vector2(1, 0));
+        }
+        else
+        {
+            print('E');
+            triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(2 * x + xMod, 0, 2 * z + zMod);
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(2 * x + xMod, 0, 2 * z + zMod));
+            if (flipY)
+                uvs.Add(new Vector2(1, 0));
+            else
+                uvs.Add(new Vector2(0, 0));
+        }
+        else
+        {
+            print('F');
+            triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod);
+
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod));
+            if (flipY)
+                uvs.Add(new Vector2(1, 1));
+            else
+                uvs.Add(new Vector2(0, 1));
+        }
+        else
+        {
+            print("G");
+           triangleVerts.Add(VertsContains(tmp));
+        }
+        tmp = new Vector3(0 + xMod, 2 * y, 2 * z + zMod);
+
+        if (VertsContains(tmp) == -1)
+        {
+            triangleVerts.Add(verts.Count);
+            verts.Add(new Vector3(0 + xMod, 2 * y, 2 * z + zMod));
+            if (!flipY)
+                uvs.Add(new Vector2(0, 1));
+            else
+                uvs.Add(new Vector2(1, 1));
+        }
+        else
+        {
+            print("H");
+            triangleVerts.Add(VertsContains(tmp));
+        }
         //Wait, how?? Sure. I'll learn the math later...
 
-        vertNum += 8;
+    }
+
+    private int VertsContains(Vector3 tmp)
+    {
+        for (int i = 0; i < verts.Count; i++)
+            if (verts[i] == tmp)
+            {
+                return i;
+            }
+        return -1;
+        
     }
 
 }
