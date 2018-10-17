@@ -185,25 +185,21 @@ public class CreateObjects : MonoBehaviour {
                 //This elif statement 
                 if (tlmp.GetTile(a) == wallTile)
                 {
-                    //AddVerts(x, y);
+                    AddVerts(x, y);
                 }
 
             }
         }
 
-        AddVerts(0, 0);
+       /* AddVerts(0, 0);
         AddVerts(1, 0);
-        AddVerts(2, 0);
-        AddVerts(3, 0);
-        AddVerts(4, 0);
-        AddVerts(5, 0);
         AddVerts(1, 1);
+        AddVerts(0, 1);
         AddVerts(1, 2);
-        AddVerts(1, 3);
-        AddVerts(1, 4);
-        AddVerts(1, 5);
-        //AddVerts(1, 1);
-        //AddVerts(0, 1);
+        AddVerts(2, 1);
+        AddVerts(-1, 0);
+        AddVerts(0, -1);*/
+
 
         //mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshRenderer>().material = wallMat;
@@ -297,30 +293,43 @@ public class CreateObjects : MonoBehaviour {
 
         float xMod = xCoord * tlmp.cellSize.x;
         float zMod = zCoord * tlmp.cellSize.y;
-        bool flipX = false, flipY = false;
+        bool flip = false;
+        bool flipY = false;
         //These if statements can and will need to be refactored...
 
+        print("NEW");
         Vector3 tmp = new Vector3(0 + xMod, 0, 0 + zMod);
         if(VertsContains(tmp) != -1)
         {
+            print("ddd");
             if(uvs[VertsContains(tmp)] == new Vector2(0,0))
             {
-                flipX = true;
+                flip = true;
             }
 
            //print("Des "+uvs[VertsContains(tmp)]+" "+ VertsContains(tmp));
         }
 
         tmp = new Vector3(2 * x + xMod, 0, 0 + zMod);
-        print(tmp);
         if (VertsContains(tmp) != -1)
         {
-            if (uvs[VertsContains(tmp)] == new Vector2(0, 0))
+            print("eee "+ uvs[VertsContains(tmp)]);
+            if (uvs[VertsContains(tmp)] == new Vector2(1, 0))
             {
-                flipY = true;
+                print("FFF");
+                flip = true;
             }
 
-            print("Dees " + uvs[VertsContains(tmp)] + " " + VertsContains(tmp));
+            //print("Des "+uvs[VertsContains(tmp)]+" "+ VertsContains(tmp));
+        }
+
+        tmp = new Vector3(0 + xMod, 0, 2 * z + zMod);
+        if (VertsContains(tmp) != -1)
+        {
+            if(uvs[VertsContains(tmp)] == new Vector2(1,0))
+            {
+                flip = true;
+            }
         }
 
         tmp = new Vector3(0 + xMod, 0, 0 + zMod);
@@ -328,7 +337,10 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(tmp);
-            uvs.Add(new Vector2(1, 0));
+            if(!flip)
+                uvs.Add(new Vector2(1, 0));
+            else
+                uvs.Add(new Vector2(0,0));
         }
         else
         {
@@ -340,7 +352,7 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(tmp);
-            if (!flipX)
+            if (!flip)
                 uvs.Add(new Vector2(0, 0));
             else
                 uvs.Add(new Vector2(1, 0));
@@ -355,7 +367,7 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(2 * x + xMod, 2 * y, 0 + zMod));
-            if (!flipX)
+            if (!flip)
             { 
             uvs.Add(new Vector2(0, 1));
             }
@@ -375,10 +387,10 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(0 + xMod, 2 * y, 0 + zMod));
-            if (!flipX)
+            if (!flip)
                 uvs.Add(new Vector2(1, 1));
             else
-                uvs.Add(new Vector2(0, 0));
+                uvs.Add(new Vector2(0, 1));
         }
         else
         {
@@ -386,12 +398,13 @@ public class CreateObjects : MonoBehaviour {
             triangleVerts.Add(VertsContains(tmp));
         }
 
+        
         tmp = new Vector3(0 + xMod, 0, 2 * z + zMod);
         if (VertsContains(tmp) == -1)
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(0 + xMod, 0, 2 * z + zMod));
-            if (!flipY)
+            if (!flip)
                 uvs.Add(new Vector2(0, 0));
             else
                 uvs.Add(new Vector2(1, 0));
@@ -406,9 +419,9 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(2 * x + xMod, 0, 2 * z + zMod));
-            if (flipY)
+            if (!flip)
                 uvs.Add(new Vector2(1, 0));
-            else
+           else
                 uvs.Add(new Vector2(0, 0));
         }
         else
@@ -422,7 +435,7 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod));
-            if (flipY)
+            if (!flip)
                 uvs.Add(new Vector2(1, 1));
             else
                 uvs.Add(new Vector2(0, 1));
@@ -438,7 +451,7 @@ public class CreateObjects : MonoBehaviour {
         {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(0 + xMod, 2 * y, 2 * z + zMod));
-            if (!flipY)
+            if (!flip)
                 uvs.Add(new Vector2(0, 1));
             else
                 uvs.Add(new Vector2(1, 1));
