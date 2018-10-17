@@ -21,11 +21,8 @@ public class CreateObjects : MonoBehaviour {
 
     [SerializeField]
     private GameObject door, chest, enemy, shop;
-
-    [SerializeField] private UnitManager um;
-    [SerializeField] private UIHandler uih;
+    
     [SerializeField] private Material wallMat;
-    [SerializeField] private ShopUI sui;
     
     private List<Vector3> verts;
     private List<Vector2> uvs;
@@ -49,8 +46,6 @@ public class CreateObjects : MonoBehaviour {
 
         //Spawn the player real fast
         GameObject plr = Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
-        Camera cam = plr.GetComponentInChildren<Camera>();
-        PlayerControls pc = plr.GetComponent<PlayerControls>();
 
         bool PlacedPlayer = false;
         for (int x = orgn.x; x < orgn.x + sz.x; x++)
@@ -75,9 +70,6 @@ public class CreateObjects : MonoBehaviour {
                         //Should probably change this stuff to be done inside the prefab instead lol
                         plr.GetComponent<PlayerControls>().curDir = PlayerControls.Direction.North;
                         plr.GetComponent<PlayerControls>().tm = tm;
-                        plr.GetComponent<PlayerControls>().uih = uih;
-                        plr.GetComponent<PlayerControls>().um = um;
-                        um.pC = plr.GetComponent<PlayerControls>();
                         PlacedPlayer = true;
                     }
                     if (tlmp.GetTile(a) == doorTile)
@@ -95,59 +87,6 @@ public class CreateObjects : MonoBehaviour {
                         (obj.GetComponent<DoorScript>()).tm = tm;
 
                     }
-                    if (tlmp.GetTile(a) == chestTile)
-                    {
-                        Vector3 pos = tlmp.CellToWorld(a);
-                        pos.x += tlmp.cellSize.x / 2;
-                        pos.z += tlmp.cellSize.y / 2;
-                        pos.y += tlmp.cellSize.y / 2;
-
-                        print("Spawned chest");
-
-                        GameObject obj = Instantiate(chest, pos, Quaternion.identity);
-
-                        obj.GetComponent<ChestScript>().um = um;
-                        obj.GetComponent<ChestScript>().itm = new Skill_Base("Revive", true);
-                        //((Chesttile)tlmp.GetTile(a)).door = obj;
-
-                    }
-                    if (tlmp.GetTile(a) == enemyTile)
-                    {
-                        Vector3 pos = tlmp.CellToWorld(a);
-                        pos.x += tlmp.cellSize.x / 2;
-                        pos.z += tlmp.cellSize.y / 2;
-                        pos.y += tlmp.cellSize.y / 2;
-
-                        print("Spawned enemy");
-
-                        GameObject obj = Instantiate(enemy, pos, Quaternion.identity);
-
-                        obj.GetComponent<Mob_Movement>().target = plr;
-                        obj.GetComponent<Mob_Movement>().astar = astar;
-                        obj.GetComponent<Mob_Movement>().tm = tm;
-                        obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
-                        print(obj.GetComponent<Mob_Base>());
-                        um.AddEnemy(obj.GetComponent<Mob_Base>());
-                        print(um);
-
-                    }
-                    if (tlmp.GetTile(a) == shopTile)
-                    {
-                        Vector3 pos = tlmp.CellToWorld(a);
-                        pos.x += tlmp.cellSize.x / 2;
-                        pos.z += tlmp.cellSize.y / 2;
-                        pos.y += tlmp.cellSize.y / 2;
-
-                        print("Spawned shopkeeper");
-
-                        GameObject obj = Instantiate(shop, pos, Quaternion.identity);
-                        obj.GetComponent<Shop_NPC>().um = um;
-                        obj.GetComponent<Shop_NPC>().sui = sui;
-                        obj.GetComponent<Shop_NPC>().pc = pc;
-                        obj.GetComponentInChildren<FaceCameraUI>().m_Camera = cam;
-
-
-                }
             }
         }
         if (!PlacedPlayer)
@@ -294,7 +233,6 @@ public class CreateObjects : MonoBehaviour {
         float xMod = xCoord * tlmp.cellSize.x;
         float zMod = zCoord * tlmp.cellSize.y;
         bool flip = false;
-        bool flipY = false;
         //These if statements can and will need to be refactored...
 
         print("NEW");

@@ -62,53 +62,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Building System\UI\PlacementGrid.cs" />
-    <Compile Include="Assets\Scripts\Cards\Card_Base.cs" />
-    <Compile Include="Assets\Scripts\Cards\Card_Character.cs" />
-    <Compile Include="Assets\Scripts\Cards\Characters\Two_Of_Clubs.cs" />
-    <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CreateObjects.cs" />
-    <Compile Include="Assets\Scripts\Decklist.cs" />
     <Compile Include="Assets\Scripts\EditTilemap.cs" />
-    <Compile Include="Assets\Scripts\Interactables\ChestScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\DoorScript.cs" />
     <Compile Include="Assets\Scripts\Interactables\Interact_Base.cs" />
-    <Compile Include="Assets\Scripts\Interactables\NPC\Shop_NPC.cs" />
-    <Compile Include="Assets\Scripts\Interactables\NPC\Talk_NPC.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Equipments\EquipmentDictionary.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Equipments\Helmet_Base.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
-    <Compile Include="Assets\Scripts\Mobs\Animations\Anim_Hover.cs" />
-    <Compile Include="Assets\Scripts\Mobs\Mob_Base.cs" />
-    <Compile Include="Assets\Scripts\Mobs\Mob_Movement.cs" />
     <Compile Include="Assets\Scripts\Pathfindin\AStar.cs" />
     <Compile Include="Assets\Scripts\Pathfindin\Node.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Playertile.cs" />
-    <Compile Include="Assets\Scripts\ShopControls.cs" />
-    <Compile Include="Assets\Scripts\Skills\Skill_Base.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
     <Compile Include="Assets\Scripts\Tiles\doorTile.cs" />
     <Compile Include="Assets\Scripts\Tiles\TileFile.cs" />
     <Compile Include="Assets\Scripts\Tiles\Walltile.cs" />
     <Compile Include="Assets\Scripts\Tiles\Watertile.cs" />
-    <Compile Include="Assets\Scripts\UI\CharacterUI.cs" />
-    <Compile Include="Assets\Scripts\UI\Deprecated_Inventory_UI.cs" />
-    <Compile Include="Assets\Scripts\UI\FaceCameraUI.cs" />
-    <Compile Include="Assets\Scripts\UI\MobUI.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectionUI.cs" />
-    <Compile Include="Assets\Scripts\UI\ShopUI.cs" />
-    <Compile Include="Assets\Scripts\UI\TextUI.cs" />
-    <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
-    <Compile Include="Assets\Scripts\UnitManager.cs" />
     <None Include="Assets\testWrite.txt" />
     <None Include="Assets\Planning\Ideas.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Christopher Chen/Documents/Unity_Projects/PerosnalStuf/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>C:/Users/Christopher Chen/Documents/Unity_Projects/PerosnalStuf/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/Christopher Chen/Documents/Unity_Projects/PerosnalStuf/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>C:/Users/Christopher Chen/Documents/Unity_Projects/PerosnalStuf/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -307,9 +286,6 @@
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Christopher Chen/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/Christopher Chen/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/Christopher Chen/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>

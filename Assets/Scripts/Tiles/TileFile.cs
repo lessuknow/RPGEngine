@@ -8,7 +8,7 @@ public class TileFile : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        string readPath = Application.dataPath + "/testRead.txt";
+        //string readPath = Application.dataPath + "/testRead.txt";
         string writePath = Application.dataPath + "/testWrite.txt";
         print(writePath);
 
