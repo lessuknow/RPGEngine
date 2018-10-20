@@ -27908,6 +27908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64f9340dd1f0f44fa3f2862d430f9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wall_height: 5
   player: {fileID: 1666036776984372, guid: 7f2088f6593541d4d977d79e7c65aa27, type: 2}
   tlmp: {fileID: 298810541}
   tm: {fileID: 1237723072}

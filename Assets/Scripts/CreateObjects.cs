@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class CreateObjects : MonoBehaviour {
+    
+    public int wall_height = 3;
 
     [SerializeField]
     private GameObject player;
@@ -129,17 +131,7 @@ public class CreateObjects : MonoBehaviour {
 
             }
         }
-
-       /* AddVerts(0, 0);
-        AddVerts(1, 0);
-        AddVerts(1, 1);
-        AddVerts(0, 1);
-        AddVerts(1, 2);
-        AddVerts(2, 1);
-        AddVerts(-1, 0);
-        AddVerts(0, -1);*/
-
-
+        
         //mesh.GetComponent<MeshFilter>().mesh.RecalculateNormals();
         mesh.GetComponent<MeshRenderer>().material = wallMat;
         //After we spawn the objects/add the verts, work on the rest of the sutff.
@@ -228,7 +220,7 @@ public class CreateObjects : MonoBehaviour {
         float y = tlmp.cellSize.y / 2;
         float z = tlmp.cellSize.y / 2;
 
-        y *= 2;
+        y *= wall_height;
 
         float xMod = xCoord * tlmp.cellSize.x;
         float zMod = zCoord * tlmp.cellSize.y;
@@ -307,12 +299,12 @@ public class CreateObjects : MonoBehaviour {
             verts.Add(new Vector3(2 * x + xMod, 2 * y, 0 + zMod));
             if (!flip)
             { 
-            uvs.Add(new Vector2(0, 1));
+            uvs.Add(new Vector2(0, wall_height));
             }
             else
             {
                 print("OWO");
-                uvs.Add(new Vector2(1,1));
+                uvs.Add(new Vector2(1, wall_height));
             }
         }
         else
@@ -326,9 +318,9 @@ public class CreateObjects : MonoBehaviour {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(0 + xMod, 2 * y, 0 + zMod));
             if (!flip)
-                uvs.Add(new Vector2(1, 1));
+                uvs.Add(new Vector2(1, wall_height));
             else
-                uvs.Add(new Vector2(0, 1));
+                uvs.Add(new Vector2(0, wall_height));
         }
         else
         {
@@ -374,9 +366,9 @@ public class CreateObjects : MonoBehaviour {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(2 * x + xMod, 2 * y, 2 * z + zMod));
             if (!flip)
-                uvs.Add(new Vector2(1, 1));
+                uvs.Add(new Vector2(1, wall_height));
             else
-                uvs.Add(new Vector2(0, 1));
+                uvs.Add(new Vector2(0, wall_height));
         }
         else
         {
@@ -390,9 +382,9 @@ public class CreateObjects : MonoBehaviour {
             triangleVerts.Add(verts.Count);
             verts.Add(new Vector3(0 + xMod, 2 * y, 2 * z + zMod));
             if (!flip)
-                uvs.Add(new Vector2(0, 1));
+                uvs.Add(new Vector2(0, wall_height));
             else
-                uvs.Add(new Vector2(1, 1));
+                uvs.Add(new Vector2(1 , wall_height));
         }
         else
         {
